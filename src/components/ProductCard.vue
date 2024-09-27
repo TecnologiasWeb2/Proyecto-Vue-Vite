@@ -9,10 +9,21 @@
 
 <script setup>
 defineProps({
-    product: Object,
+    product: {
+        type: Object,
+        required: true
+    },
 });
 </script>
 
 <style>
+.product-card{
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    width: 200px;
+    text-align: center
+}
 
 </style>
