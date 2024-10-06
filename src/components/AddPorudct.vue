@@ -24,6 +24,7 @@
   <script setup>
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
+  import { supabase } from '../supabase';
   
   const newProduct = ref({
     name: '',
@@ -33,16 +34,18 @@
   
   const router = useRouter();
   
-  const addProduct = () => {
+  const addProduct = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('producto')
+        .insert([{ nombre: newProduct.value.name, descripcion: newProduct.value.description, precio: newProduct.value.price }]);
 
-    let products = JSON.parse(localStorage.getItem('products')) || [];
+      if (error) throw error;
 
-    const newId = products.length ? products[products.length - 1].id + 1 : 1;
-    products.push({ ...newProduct.value, id: newId });
-
-    localStorage.setItem('products', JSON.stringify(products));
-
-    router.push('/');
+      router.push('/');
+    } catch (error) {
+      console.error('Error al agregar el producto:', error);
+    }
   };
   </script>
   

@@ -1,8 +1,8 @@
 <template>
     <div class="product-card">
-        <h2>{{product.name}}</h2>
-        <p>{{ product.description }}</p>
-        <p>{{ product.price }}</p>
+        <h2>{{product.nombre}}</h2>
+        <p>{{ product.descripcion }}</p>
+        <p>{{ product.precio }}</p>
         <router-link :to="`/product/${product.id}`">Ver Producto</router-link>
     </div>
 </template>

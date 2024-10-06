@@ -17,11 +17,23 @@
   <script setup>
   import { ref, onMounted } from 'vue';
   import ProductCard from './ProductCard.vue';
+  import { supabase } from '../supabase';
 
   const products = ref([]);
 
-  onMounted(() => {
-    products.value = JSON.parse(localStorage.getItem('products')) || [];
+  onMounted(async() => {
+    try {
+      const {data, error} = await supabase
+        .from('producto')
+        .select();
+
+      if (error) throw error;
+
+      products.value = data;
+
+    }catch (error){
+      console.error('Error al cargar los productos')
+    }
   });
   </script>
   
